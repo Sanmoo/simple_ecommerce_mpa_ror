@@ -15,6 +15,13 @@
   </div>
 
   <div>
+    <strong>Picture:</strong>
+    <%- if @product.picture.attached? %>
+      <%= image_tag url_for(@product.picture) %>
+    <% end %>
+  </div>
+
+  <div>
     <strong>Quantity in stock:</strong>
     <%= @product.quantity_in_stock %>
   </div>
