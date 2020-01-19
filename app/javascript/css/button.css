@@ -1,0 +1,35 @@
+.btn {
+  @apply bg-transparent font-semibold py-2 px-4 border rounded cursor-pointer;
+}
+
+.btn-primary {
+  @apply text-blue-700 border-blue-500;
+}
+
+.btn-secondary {
+  @apply text-gray-700 border-gray-500;
+}
+
+.btn-success {
+  @apply text-green-700 border-green-500;
+}
+
+.btn-warning {
+  @apply text-yellow-700 border-yellow-500;
+}
+
+.btn-primary:hover {
+  @apply bg-blue-500 text-white border-transparent;
+}
+
+.btn-secondary:hover {
+  @apply bg-gray-500 text-white border-transparent;
+}
+
+.btn-success:hover {
+  @apply bg-green-500 text-white border-transparent;
+}
+
+.btn-warning:hover {
+  @apply bg-yellow-500 text-white border-transparent;
+}
