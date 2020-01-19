@@ -16,6 +16,10 @@ RSpec.describe Product, type: :model do
     expect(build(:product, quantity_in_stock: nil)).not_to be_valid
   end
 
+  it 'validates that the price is not smaller than zero' do
+    expect(build(:product, price: -10)).not_to be_valid
+  end
+
   context 'given there is already a product named XYZ' do
     before do
       create(:product, name: 'XYZ')
