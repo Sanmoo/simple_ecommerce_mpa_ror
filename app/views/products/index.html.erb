@@ -1,0 +1,31 @@
+<div class="w-full flex justify-center py-8">
+  <h1 class="text-lg font-semibold">Products</h1>
+</div>
+
+<table class="table-auto mx-auto">
+  <thead>
+    <tr>
+      <th class="px-4 py-2">Name</th>
+      <th class="px-4 py-2">Price</th>
+      <th class="px-4 py-2">Quantity in stock</th>
+      <th class="px-4 py-2" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td class="border px-4 py-2"><%= product.name %></td>
+        <td class="border px-4 py-2"><%= product.price %></td>
+        <td class="border px-4 py-2"><%= product.quantity_in_stock %></td>
+        <td class="border px-4 py-2"><%= link_to 'Show', product %></td>
+        <td class="border px-4 py-2"><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td class="border px-4 py-2"><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Product', new_product_path, class: 'btn btn-primary' %>
