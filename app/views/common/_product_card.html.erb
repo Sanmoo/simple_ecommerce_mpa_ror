@@ -1,0 +1,16 @@
+<div class="product-card max-w-sm rounded overflow-hidden shadow-lg sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/6 m-2 flex flex-col">
+  <div class="w-full flex justify-center">
+    <%= link_to product_path(product) do %>
+      <img src="<%= url_for(product.picture) %>" alt="Product <%= product.name %>">
+    <% end %>
+  </div>
+  <div class="px-6 py-4">
+    <%= link_to product.name, product_path(product), class: 'font-bold text-xl mb-2' %>
+    <p class="text-gray-700 text-base">
+      <%= truncate(product.description, length: 100) %>
+    </p>
+  </div>
+  <div class="px-5 mb-3 flex-grow flex items-end">
+    <span class="inline-block text-lg font-semibold text-gray-700 mr-2">U$ <%= product.price %></span>
+  </div>
+</div>
