@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-  before_action :authenticate_user!
-
-  def show; end
+  def show
+    @products = Product.all
+  end
 end
