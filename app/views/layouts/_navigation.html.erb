@@ -25,6 +25,10 @@
             class: 'block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white'
           %>
         <% else %>
+          <%= link_to "My Shopping Cart (#{@shopping_cart_quantity})",
+            'javascript:alert("Not implemented yet")',
+            class: 'block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-3'
+          %>
           <%= link_to 'Log in',
             new_user_session_path,
             class: 'block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white'

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :shopping_cart_items, only: :create
   resources :products
   devise_for :users
   get 'home/show'
