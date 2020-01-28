@@ -22,14 +22,20 @@
       <% end %>
     </div>
 
-    <div>
-      <strong>Quantity in stock:</strong>
-      <%= @product.quantity_in_stock %>
-    </div>
+    <% if user_signed_in? %>
+      <div>
+        <strong>Quantity in stock:</strong>
+        <%= @product.quantity_in_stock %>
+      </div>
+    <% end %>
   </div>
 
   <div class="flex justify-center mb-3">
-    <%= link_to 'Edit', edit_product_path(@product), class: 'btn btn-primary mr-2' %>
+    <% if user_signed_in? %>
+      <%= link_to 'Edit', edit_product_path(@product), class: 'btn btn-primary mr-2' %>
+    <% else %>
+      <%= link_to 'Add to Cart', shopping_cart_items_path(product_id: @product.id), method: :post, class: 'btn btn-primary mr-2' %>
+    <% end %>
     <%= link_to 'Back', 'javascript:history.back()', class: 'btn btn-secondary' %>
   </div>
 </div>
