@@ -10,6 +10,7 @@ require("channels")
 require("alpinejs")
 require("utils/request")
 
+import '@fortawesome/fontawesome-free/js/all';
 import '../css/application.css'
 
 

@@ -1,5 +1,6 @@
 @import 'button.css';
 @import 'input.css';
+@import '@fortawesome/fontawesome-free';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
