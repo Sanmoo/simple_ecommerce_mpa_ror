@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :shopping_cart_items, only: :create
+  resources :shopping_cart_items, only: %i[create index]
+  patch 'shopping_cart_items/update', to: 'shopping_cart_items#update'
+  delete 'shopping_cart_items/delete', to: 'shopping_cart_items#delete'
+
   resources :products
   devise_for :users
   get 'home/show'
