@@ -1,0 +1,58 @@
+<div class="flex px-4 py-4">
+  <div class="sm:w-10/12">
+    <table class="w-full">
+      <thead>
+        <tr>
+          <th class="w-7/12">Product</th>
+          <th class="w-3/12">Quantity</th>
+          <th class="w-2/12">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @shopping_cart_items.each do |sci| %>
+          <tr class="border-b border-gray border-solid" x-show="shoppingCart.indexOf(<%= sci.product.id %>) > -1">
+            <td class="flex items-center">
+              <%= image_tag url_for(sci.product.picture), class: 'h-40 mr-2' %>
+              <%= sci.product.name %>
+            </td>
+            <td>
+              <div class="flex w-full items-center flex-col">
+                <div class="flex w-full justify-center">
+                  <button
+                    @click="patch('<%= shopping_cart_items_update_path(product_id: sci.product.id, increase: -1) %>')
+                    .then(() => shoppingCart.splice(shoppingCart.indexOf(<%= sci.product.id %>), 1))"
+                  >
+                    -
+                  </button>
+                  <span x-text="shoppingCart.filter(id => id === <%= sci.product.id %>).length"></span>
+                  <button
+                    @click="patch('<%= shopping_cart_items_update_path(product_id: sci.product.id, increase: +1) %>')
+                      .then(() => shoppingCart.push(<%= sci.product.id %>))"
+                  >
+                  +
+                  </button>
+                </div>
+                <button @click="deleteReq('<%= shopping_cart_items_delete_path(product_id: sci.product.id) %>').then(() => shoppingCart = shoppingCart.filter(item => item !== <%= sci.product.id %>))">
+                  Remove
+                </button>
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                $ <%= sci.quantity * sci.product.price %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tobdy>
+    </table>
+  </div>
+  <div class="sm:w-2/12">
+    <h2>Order summary</h2>
+    <div class="mb-5">
+      <p>Total: (<span x-text="shoppingCart.length"></span> products)</p>
+      <p>$ <span x-text="shoppingCart.reduce((memo, id) => memo + shoppingCartPrices[id], 0)"></span></p>
+    </div>
+    <button class="btn btn-primary w-full">Continue</button>
+  </div>
+</div>

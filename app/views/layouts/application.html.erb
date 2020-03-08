@@ -9,7 +9,7 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body>
+  <body x-data="{ shoppingCart: [<%= session[:product_ids_list] %>], shoppingCartPrices: { <%= (@shopping_cart_items || []).map{ |item| "#{item.product.id}: #{item.product.price}" }.join(",") %> } }">
     <%= render('layouts/navigation') %>
     <% if notice %>
       <%= render 'common/message_panel', base_color: 'blue' do %>
