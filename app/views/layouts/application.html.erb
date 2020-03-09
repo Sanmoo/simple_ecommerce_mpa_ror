@@ -9,8 +9,18 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body x-data="{ shoppingCart: [<%= session[:product_ids_list] %>], shoppingCartPrices: { <%= (@shopping_cart_items || []).map{ |item| "#{item.product.id}: #{item.product.price}" }.join(",") %> } }">
+  <body x-data="{
+      shoppingCart: [<%= session[:product_ids_list] %>],
+      shoppingCartPrices: { <%= (@shopping_cart_items || []).map{ |item| "#{item.product.id}: #{item.product.price}" }.join(",") %> },
+      modalOpened: false,
+      modalData: {}
+    }"
+    @modal-push="modalOpened = true; modalData = $event.detail"
+    @modal-pop="modalOpened = false; modalData = {}"
+    :class="{ 'overflow-x-hidden': modalOpened, 'overflow-y-visible': modalOpened }"
+  >
     <%= render('layouts/navigation') %>
+    <%= render 'common/modal' %>
     <% if notice %>
       <%= render 'common/message_panel', base_color: 'blue' do %>
         <%= notice %>

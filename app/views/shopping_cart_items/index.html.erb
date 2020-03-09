@@ -44,7 +44,7 @@
             </td>
           </tr>
         <% end %>
-      </tobdy>
+      </tbody>
     </table>
   </div>
   <div class="sm:w-2/12">
@@ -53,6 +53,12 @@
       <p>Total: (<span x-text="shoppingCart.length"></span> products)</p>
       <p>$ <span x-text="shoppingCart.reduce((memo, id) => memo + shoppingCartPrices[id], 0)"></span></p>
     </div>
-    <button class="btn btn-primary w-full" x-show="shoppingCart.length > 0"><i class="fas fa-shopping-basket"></i> Continue</button>
+    <button
+      class="btn btn-primary w-full"
+      x-show="shoppingCart.length > 0"
+      @click="$dispatch('modal-push', { content: 'In order to proceed with checkout, you need first to signup (link). Or rather sign in (other link) if you are already a registered user.' })">
+        <i class="fas fa-shopping-basket"></i>
+        Continue
+    </button>
   </div>
 </div>
