@@ -16,7 +16,7 @@
       modalData: {}
     }"
     @modal-push="modalOpened = true; modalData = $event.detail"
-    @modal-pop="modalOpened = false; modalData = {}"
+    @modal-pop="modalOpened = false"
     :class="{ 'overflow-x-hidden': modalOpened, 'overflow-y-visible': modalOpened }"
   >
     <%= render('layouts/navigation') %>

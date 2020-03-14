@@ -1,4 +1,4 @@
-<%- if controller_name != 'sessions' %>
+<%- unless ['sessions', 'registrations', 'passwords'].include? controller_name %>
   <nav class="flex items-center justify-between flex-wrap bg-pink-500 p-5">
     <div class="flex items-center flex-shrink-0 text-white mr-6">
       <%= link_to 'Simple Ecommerce RoR MPA', root_path, class: 'font-semibold text-xl tracking-tight' %>
@@ -17,6 +17,10 @@
         </div>
       <% end %>
       <div class="text-sm lg:flex-grow flex-grow justify-end flex">
+        <%= link_to 'My Shopping Cart (<span x-text="shoppingCart.length"></span>)'.html_safe,
+            shopping_cart_items_path,
+            class: 'block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-3'
+        %>
         <%- if user_signed_in? %>
           <%= link_to 'Log out',
             destroy_user_session_path,
@@ -25,10 +29,6 @@
             class: 'block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white'
           %>
         <% else %>
-          <%= link_to 'My Shopping Cart (<span x-text="shoppingCart.length"></span>)'.html_safe,
-              shopping_cart_items_path,
-              class: 'block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-3'
-          %>
           <%= link_to 'Log in',
             new_user_session_path,
             class: 'block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white'

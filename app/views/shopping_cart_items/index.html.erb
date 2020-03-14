@@ -47,18 +47,30 @@
       </tbody>
     </table>
   </div>
-  <div class="sm:w-2/12">
+  <div class="sm:w-2/12 d-flex flex-col items-stretch">
     <h2>Order summary</h2>
     <div class="mb-5">
       <p>Total: (<span x-text="shoppingCart.length"></span> products)</p>
       <p>$ <span x-text="shoppingCart.reduce((memo, id) => memo + shoppingCartPrices[id], 0)"></span></p>
     </div>
+    <% unless user_signed_in? %>
     <button
       class="btn btn-primary w-full"
       x-show="shoppingCart.length > 0"
-      @click="$dispatch('modal-push', { content: 'In order to proceed with checkout, you need first to signup (link). Or rather sign in (other link) if you are already a registered user.' })">
-        <i class="fas fa-shopping-basket"></i>
-        Continue
+        @click="$dispatch('modal-push', {
+          content: 'In order to proceed with checkout, you need first to ' +
+            '<a href=\'<%= new_user_registration_path %>\' class=\'text-indigo-900\'>signup</a>. ' +
+            'Or rather <a href=\'<%= new_user_session_path %>\' class=\'text-indigo-900\'>sign in</a> if you are already a registered user.'
+        })"
+    >
+      <i class="fas fa-shopping-basket"></i>
+      Continue
     </button>
+    <% else %>
+    <%= link_to new_order_path, class: 'btn btn-primary w-full block text-center' do %>
+      <i class="fas fa-shopping-basket"></i>
+      Continue
+    <% end %>
+    <% end %>
   </div>
 </div>

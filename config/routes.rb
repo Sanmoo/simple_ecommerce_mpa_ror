@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   resources :shopping_cart_items, only: %i[create index]
+  resources :orders, only: %i[new]
   patch 'shopping_cart_items/update', to: 'shopping_cart_items#update'
   delete 'shopping_cart_items/delete', to: 'shopping_cart_items#delete'
 
