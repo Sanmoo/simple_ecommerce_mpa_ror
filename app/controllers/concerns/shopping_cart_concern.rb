@@ -17,4 +17,11 @@ module ShoppingCartConcern
       end
     end
   end
+
+  def update_shopping_cart_items_in_session(shopping_cart_items)
+    session[:product_ids_list] =
+      shopping_cart_items
+      .flat_map { |item| [item.product.id.to_s] * item.quantity }
+      .join(',')
+  end
 end

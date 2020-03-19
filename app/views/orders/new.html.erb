@@ -1,2 +1,81 @@
-<p>TODO: Build new order html template</p>
+<div class="w-full flex flex-col items-center mt-4">
+  <div class="sm:w-10/12 px-5 py-5 border rounded-md">
+    <table>
+      <thead>
+        <tr>
+          <th class="w-6/12">Product</th>
+          <th class="w-2/12">Quantity</th>
+          <th class="w-2/12">Unit. Price</th>
+          <th class="w-2/12">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order_form.order.order_items.each do |order_item| %>
+          <tr>
+            <td class="flex items-center">
+              <%= image_tag url_for(order_item.product.picture), class: 'h-32 mr-2' %>
+              <%= order_item.product.name %>
+            </td>
+            <td class="text-center"><%= order_item.quantity %></td>
+            <td class="text-center"><%= order_item.unitary_price %></td>
+            <td class="text-center"><%= order_item.total_price %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="w-full mt-5 text-lg">
+      Order total price: <%= @order_form.order.total_price %>
+    </div>
+  </div>
+  <div class="sm:w-10/12 mt-5">
+    <% if @order_form.order.errors.any? || @order_form.payment_information.errors.any? %>
+      <div id="error_explanation" class="bg-red-400 border border-red-600 mb-3 p-2 rounded-md">
+        <h2>The Checkout could not be completed due to the following errors:</h2>
+        <ul class="list-disc list-inside">
+          <% @order_form.order.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          <% @order_form.payment_information.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
+    <%= form_with model: @order_form, url: orders_path, local: true, class: 'w-full flex flex-col items-center' do |f| %>
+      <%= f.fields_for :order do |ff| %>
+        <%= ff.label :delivery_address, 'Prease provide your order delivery information', class: 'text-lg text-center mb-2' %>
+        <%= ff.text_area :delivery_address, class: 'w-full border rounded-md h-32' %>
+        <%= ff.fields_for :order_items do |fff| %>
+          <%= fff.hidden_field :product_id %>
+          <%= fff.hidden_field :quantity %>
+          <%= fff.hidden_field :unitary_price %>
+        <% end %>
+      <% end %>
+
+      <h2 class="mt-8 text-lg">Payment Information</h2>
+      <div class="border rounded-md w-full flex flex-col items-center mt-2">
+        <%= f.fields_for :payment_information do |ff| %>
+          <div class="px-2 w-full py-3 flex">
+            <%= ff.label :credit_card_number, class: 'sm:w-2/12 d-block text-right pr-4' %>
+            <%= ff.text_field :credit_card_number, class: 'sm:w-10/12 ipt-primary' %>
+          </div>
+
+          <div class="px-2 w-full py-3 flex">
+            <%= ff.label :holder_name, class: 'sm:w-2/12 d-block text-right pr-4' %>
+            <%= ff.text_field :holder_name, class: 'sm:w-10/12 ipt-primary' %>
+          </div>
+
+          <div class="px-2 w-full py-3 flex">
+            <%= ff.label :expiration_date, class: 'sm:w-2/12 d-block text-right pr-4' %>
+            <%= ff.text_field :expiration_date, class: 'sm:w-4/12 ipt-primary' %>
+            <%= ff.label :security_code, class: 'sm:w-2/12 d-block text-right pr-4' %>
+            <%= ff.text_field :security_code, class: 'sm:w-4/12 ipt-primary' %>
+          </div>
+        <% end %>
+      </div>
+
+      <%= f.submit 'Complete Checkout', class: 'btn btn-primary my-4' %>
+    <% end %>
+  </div>
+</div>

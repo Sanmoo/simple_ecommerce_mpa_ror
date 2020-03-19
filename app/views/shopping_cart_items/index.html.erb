@@ -67,7 +67,7 @@
       Continue
     </button>
     <% else %>
-    <%= link_to new_order_path, class: 'btn btn-primary w-full block text-center' do %>
+    <%= link_to new_order_path, class: 'btn btn-primary w-full block text-center', 'x-show': 'shoppingCart.length > 0' do %>
       <i class="fas fa-shopping-basket"></i>
       Continue
     <% end %>
