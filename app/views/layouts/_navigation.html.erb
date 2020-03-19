@@ -5,16 +5,16 @@
     </div>
     
     <div class="block flex-grow lg:flex lg:items-center lg:w-auto">
-      <%- if current_user&.role == 'ADMIN' %>
-        <div class="text-sm lg:flex-grow">
-          <%= link_to 'Products', products_path, class: 'block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white' %>
-        </div>
-      <% end %>
       <div class="text-sm lg:flex-grow flex-grow justify-end flex">
-        <%= link_to 'My Shopping Cart (<span x-text="shoppingCart.length"></span>)'.html_safe,
-            shopping_cart_items_path,
-            class: 'block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-3'
-        %>
+        <%- if current_user&.role == 'ADMIN' %>
+          <%= link_to 'Products', products_path, class: 'block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-3' %>
+        <% end %>
+        <%- if current_user&.role != 'ADMIN' %>
+          <%= link_to 'My Shopping Cart (<span x-text="shoppingCart.length"></span>)'.html_safe,
+              shopping_cart_items_path,
+              class: 'block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-3'
+          %>
+        <% end %>
         <%- if user_signed_in? %>
           <%= link_to 'Log out',
             destroy_user_session_path,
