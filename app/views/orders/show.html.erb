@@ -1,0 +1,26 @@
+<div class="container mx-auto">
+  <div class="flex flex-col p-3 bg-gray-300 border rounded my-3">
+    <div>
+      <strong>Payment status:</strong>
+      APPROVED
+    </div>
+
+    <div>
+      <strong>Date:</strong>
+      <%= @order.created_at %>
+    </div>
+
+    <div>
+      <strong>Delivery address:</strong>
+      <%= simple_format(@order.delivery_address) %>
+    </div>
+  </div>
+
+  <div class="flex justify-center mb-3">
+    <%= render partial: 'order_items', locals: { order: @order } %>
+  </div>
+
+  <div class="flex justify-center mb-3">
+    <%= link_to 'Back', 'javascript:history.back()', class: 'btn btn-secondary' %>
+  </div>
+</div>

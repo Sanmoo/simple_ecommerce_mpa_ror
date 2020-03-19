@@ -4,6 +4,14 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   include ShoppingCartConcern
 
+  def index
+    @orders = scoped_orders
+  end
+
+  def show
+    @order = scoped_orders.find(params[:id])
+  end
+
   def new
     @order_form = OrderForm.new(order: Order.new, payment_information: PaymentInformation.new)
     build_shopping_cart_items_from_session.each do |sci|
@@ -26,6 +34,9 @@ class OrdersController < ApplicationController
   end
 
   private
+  def scoped_orders
+    Order.includes(:order_items).where(user: current_user)
+  end
 
   def order_form_params
     params.require(:order_form).permit(

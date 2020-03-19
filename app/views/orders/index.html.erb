@@ -1,0 +1,23 @@
+<div class="w-full flex justify-center py-8">
+  <h1 class="text-lg font-semibold">Your Orders</h1>
+</div>
+
+<table class="table-auto mx-auto mb-3">
+  <thead>
+    <tr>
+      <th class="px-4 py-2">Date</th>
+      <th class="px-4 py-2">Total Price</th>
+      <th class="px-4 py-2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td class="border px-4 py-2"><%= order.created_at %></td>
+        <td class="border px-4 py-2"><%= order.total_price %></td>
+        <td class="border px-4 py-2"><%= link_to 'Details', order %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

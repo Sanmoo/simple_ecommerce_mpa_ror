@@ -1,0 +1,28 @@
+<div class="sm:w-10/12 px-5 py-5 border rounded-md">
+  <table>
+    <thead>
+    <tr>
+      <th class="w-6/12">Product</th>
+      <th class="w-2/12">Quantity</th>
+      <th class="w-2/12">Unit. Price</th>
+      <th class="w-2/12">Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% order.order_items.each do |order_item| %>
+      <tr>
+        <td class="flex items-center">
+            <%= image_tag url_for(order_item.product.picture), class: 'h-32 mr-2' %>
+            <%= order_item.product.name %>
+        </td>
+        <td class="text-center"><%= order_item.quantity %></td>
+        <td class="text-center"><%= order_item.unitary_price %></td>
+        <td class="text-center"><%= order_item.total_price %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="w-full mt-5 text-lg">
+    Order total price: <%= order.total_price %>
+  </div>
+</div>
