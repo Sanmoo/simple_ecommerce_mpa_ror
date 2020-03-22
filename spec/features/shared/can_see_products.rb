@@ -8,4 +8,9 @@ RSpec.shared_examples "can see products in the page" do
       expect(page).to have_xpath("//body//*[contains(@class, 'product-card')]//*[contains(text(), \"U$ #{product.price}\")]")
     end
   end
+
+  scenario "User can go to the details page of the selected product" do
+    click_on products[0].name
+    expect(current_path).to eq("/products/#{products[0].id}")
+  end
 end
