@@ -3,7 +3,7 @@
 require 'features/shared/can_see_products'
 require 'rails_helper'
 
-RSpec.feature 'Admin home page', type: :feature do
+RSpec.feature 'Home page', type: :feature do
   context 'given 4 products are registered' do
     before do
       @products = []
@@ -31,11 +31,28 @@ RSpec.feature 'Admin home page', type: :feature do
       include_examples 'can see products in the page' do
         let(:products) { @products }
       end
+
+      context 'when they click in the Products menu' do
+        before { within('body > nav') { click_on('Products') } }
+
+        scenario 'then they are taken to the products page' do
+          expect(current_path).to eq('/products')
+        end
+      end
+
+      context 'when they click in the Log out menu' do
+        before { within('body > nav') { click_on('Log out') } }
+
+        scenario 'then they are kept in the home page but are informed that they logged out' do
+          expect(current_path).to eq('/')
+          expect(page).to have_text 'Signed out successfully.'
+        end
+      end
     end
 
     context 'given the customer user has just logged in' do
       before do
-        @customer = create(:customer_user)
+        @customer = create(:user)
         login_as @customer
         visit '/'
       end
@@ -52,6 +69,31 @@ RSpec.feature 'Admin home page', type: :feature do
 
       include_examples 'can see products in the page' do
         let(:products) { @products }
+      end
+
+      context 'when they click in the My Orders menu' do
+        before { within('body > nav') { click_on('My Orders') } }
+
+        scenario 'then they are taken to the orders page' do
+          expect(current_path).to eq('/orders')
+        end
+      end
+
+      context 'when they click in the Shopping cart menu' do
+        before { within('body > nav') { click_on('Shopping Cart') } }
+
+        scenario 'then they are taken to the shopping cart page' do
+          expect(current_path).to eq('/shopping_cart_items')
+        end
+      end
+
+      context 'when they click in the Log out menu' do
+        before { within('body > nav') { click_on('Log out') } }
+
+        scenario 'then they are kept in the home page but are informed that they logged out' do
+          expect(current_path).to eq('/')
+          expect(page).to have_text 'Signed out successfully.'
+        end
       end
     end
 
@@ -70,6 +112,22 @@ RSpec.feature 'Admin home page', type: :feature do
 
       include_examples 'can see products in the page' do
         let(:products) { @products }
+      end
+
+      context 'when they click in the Shopping cart menu' do
+        before { within('body > nav') { click_on('Shopping Cart') } }
+
+        scenario 'then they are taken to the shopping cart page' do
+          expect(current_path).to eq('/shopping_cart_items')
+        end
+      end
+
+      context 'when they click in the Log in menu' do
+        before { within('body > nav') { click_on('Log in') } }
+
+        scenario 'then they are taken to the login screen' do
+          expect(current_path).to eq('/users/sign_in')
+        end
       end
     end
   end
