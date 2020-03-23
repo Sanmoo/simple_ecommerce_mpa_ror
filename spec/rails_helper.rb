@@ -70,3 +70,5 @@ RSpec.configure do |config|
     include ActionDispatch::TestProcess
   end
 end
+
+Capybara.javascript_driver = :selenium_chrome_headless

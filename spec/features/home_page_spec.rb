@@ -12,7 +12,7 @@ RSpec.feature 'Home page', type: :feature do
 
     context 'given the admin user has just logged in' do
       before do
-        @admin = create(:admin_user)
+        @admin = create(:user, :admin)
         login_as @admin
         visit '/'
       end

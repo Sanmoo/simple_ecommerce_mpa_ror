@@ -8,7 +8,7 @@ RSpec.feature 'Login page', type: :feature do
   end
 
   scenario 'redirects to home page if admin user is logged in' do
-    login_as create(:admin_user)
+    login_as create(:user, :admin)
     visit 'users/sign_in'
     expect(current_path).to eq('/')
   end
@@ -51,7 +51,7 @@ RSpec.feature 'Login page', type: :feature do
     end
 
     context 'given an admin user is registered' do
-      let(:user) { create(:admin_user) }
+      let(:user) { create(:user, :admin) }
 
       context 'when he or she fills the form and click submit' do
         before do
