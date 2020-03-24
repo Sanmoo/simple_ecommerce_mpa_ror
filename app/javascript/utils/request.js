@@ -1,10 +1,11 @@
 function request(url, method) {
-  const token = document.querySelectorAll('meta[name=csrf-token]')[0].getAttribute('content');
+  const headers = {};
+  const tokenEls = document.querySelectorAll('meta[name=csrf-token]');
+  if (tokenEls.length > 0) {
+    headers['X-CSRF-Token'] = tokenEls[0].getAttribute('content');
+  }
   return new Promise((resolve, reject) => {
-    return fetch(url, {
-      method,
-      headers: { 'X-CSRF-Token': token }
-    }).then((e) => {
+    return fetch(url, { method, headers }).then((e) => {
       if (e.status === 204) {
         return resolve();
       }
