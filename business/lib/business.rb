@@ -1,6 +1,7 @@
-require "business/version"
+# frozen_string_literal: true
+
+require 'business/version'
 
 module Business
   class Error < StandardError; end
-  # Your code goes here...
 end
