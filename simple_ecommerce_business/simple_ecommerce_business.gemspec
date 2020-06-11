@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Sanmoo']
   spec.email         = ['sanmoo.cs@gmail.com']
   spec.summary       = 'Business Logic for Simple Ecommerce App'
-  spec.description   = 'Ruby Implementation for the Business Logic of Simple Ecommerce App' # rubocop:disable LineLength
+  spec.description   = 'Ruby Implementation for the Business Logic of Simple Ecommerce App' # rubocop:disable Layout/LineLength
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added
@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
+  spec.add_dependency 'clean-architecture', '~> 5.0'
   spec.add_dependency 'dry-struct', '~> 1.0'
   spec.add_dependency 'dry-validation', '~> 1.5'
   spec.add_dependency 'duckface-interfaces'

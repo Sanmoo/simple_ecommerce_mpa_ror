@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe Business do
+RSpec.describe SimpleEcommerceBusiness do
   it 'has a version number' do
-    expect(Business::VERSION).not_to be nil
+    expect(SimpleEcommerceBusiness::VERSION).not_to be nil
   end
 end

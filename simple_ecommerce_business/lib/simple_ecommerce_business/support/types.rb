@@ -4,8 +4,8 @@ require 'dry-struct'
 
 module SimpleEcommerceBusiness
   module Support
-module Types # rubocop:disable Documentation
-  include Dry.Types()
+    module Types # rubocop:disable Documentation,DepartmentName
+      include Dry.Types()
+    end
+  end
 end
-
-class Application

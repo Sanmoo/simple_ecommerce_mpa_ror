@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'business/version'
+require 'simple_ecommerce_business/version'
 
 module SimpleEcommerceBusiness
   class Error < StandardError; end
