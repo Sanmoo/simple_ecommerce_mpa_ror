@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# Wraps the result from calling a business method
-class CallResult
+# Wraps the result from calling a use case
+class UseCaseResult
   attr_accessor :result, :errors
 
   def initialize(result = nil, errors = nil)

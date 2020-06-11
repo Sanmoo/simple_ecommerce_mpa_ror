@@ -2,6 +2,6 @@
 
 require 'business/version'
 
-module Business
+module SimpleEcommerceBusiness
   class Error < StandardError; end
 end

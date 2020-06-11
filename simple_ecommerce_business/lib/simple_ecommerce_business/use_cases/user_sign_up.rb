@@ -2,18 +2,17 @@
 
 require 'dry-validation'
 
-require_relative './call_result'
+require 'simple_ecommerce_business/support/use_case_result'
 
-module Business
-  module Services
+module SimpleEcommerceBusiness
+  module UseCases
     # Provide business use cases related to app users
-    class User
-      # rubocop:disable Style/Documentation
-      class UserContract < Dry::Validation::Contract
+    class UserSignUp
+      class Contract < Dry::Validation::Contract # rubocop:disable Documentation
         params do
           required(:email).filled(:string)
           required(:password).filled(:string)
-          required(:role).filled(:string)
+          required(:password_confirmation).filled(:string)
         end
 
         rule(:password) do
@@ -22,9 +21,12 @@ module Business
           end
         end
 
-        rule
+        rule(:password_confirmation) do
+          if values[:password] != value
+            key.failure('should be the same as password')
+          end
+        end
       end
-      # rubocop:enable Style/Documentation
 
       private_constant :UserContract
 
@@ -32,11 +34,13 @@ module Business
         @user_repository = user_repository
       end
 
-      def register_new_customer(**args)
+      def call(**args)
         validation_result = UserContract.new.call(args)
         unless validation_result.success?
-          return CallResult.new(nil, validation_result.errors.to_h)
+          return UseCaseResult.new(nil, validation_result.errors.to_h)
         end
+
+        user = User.new(email: args[:email], password: args[:password])
 
         @user_repository.create(*args)
         CallResult.new
