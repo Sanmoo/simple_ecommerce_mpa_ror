@@ -30,7 +30,7 @@ module SimpleEcommerceBusiness
           email: 'available@email.com',
           password: 'teste1',
           password_confirmation: 'teste1',
-          role: 'ADMIN'
+          role: 'CUSTOMER'
         }
 
         @params = @entity_params.merge(
@@ -53,6 +53,14 @@ module SimpleEcommerceBusiness
 
       context 'when role is invalid' do
         before { @params[:role] = 'PROVIDER' }
+
+        it 'fails to sign a user up' do
+          expect(result).to be_a Dry::Monads::Failure
+        end
+      end
+
+      context 'when role is ADMIN' do
+        before { @params[:role] = 'ADMIN' }
 
         it 'fails to sign a user up' do
           expect(result).to be_a Dry::Monads::Failure

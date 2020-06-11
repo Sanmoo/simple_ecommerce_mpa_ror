@@ -34,6 +34,12 @@ module SimpleEcommerceBusiness
             key.failure('should be the same as password')
           end
         end
+
+        rule(:role) do
+          if values[key_name] == 'ADMIN'
+            key.failure('Only customers are allowed to sign up')
+          end
+        end
       end
 
       extend Forwardable
