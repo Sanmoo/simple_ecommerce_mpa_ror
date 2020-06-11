@@ -42,20 +42,19 @@ module SimpleEcommerceBusiness
         )
       end
 
-      subject(:result) do
+      let(:result) do
         UserSignUp.new(UserSignUp.parameters(@params)).result
       end
 
-      it { is_expected.to be_a Dry::Monads::Success }
-
-      specify do
+      it 'signs up a user successfully' do
+        expect(result).to be_a Dry::Monads::Success
         expect(result.value!).to be_a User
       end
 
       context 'when email is empty' do
         before { @params[:email] = '' }
 
-        specify do
+        it 'fails to sign a user up' do
           expect(result).to be_a Dry::Monads::Failure
           expect(result.failure.full_messages).to contain_exactly(
             'Email must be filled'
@@ -68,7 +67,7 @@ module SimpleEcommerceBusiness
           @params[:password] = @params[:password_confirmation] = 'teste'
         end
 
-        specify do
+        it 'fails to sign a user up' do
           expect(result).to be_a Dry::Monads::Failure
           expect(result.failure.full_messages).to contain_exactly(
             'Password must have at least 6 chars'
@@ -81,7 +80,7 @@ module SimpleEcommerceBusiness
           @params[:password_confirmation] = "#{@params[:password]}t"
         end
 
-        specify do
+        it 'fails to sign a user up' do
           expect(result).to be_a Dry::Monads::Failure
           expect(result.failure.full_messages).to contain_exactly(
             'Password confirmation should be the same as password'
