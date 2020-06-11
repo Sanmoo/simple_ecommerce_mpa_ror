@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'dry-struct'
+require 'simple_ecommerce_business/entities/types'
 
 module SimpleEcommerceBusiness
   module Entities

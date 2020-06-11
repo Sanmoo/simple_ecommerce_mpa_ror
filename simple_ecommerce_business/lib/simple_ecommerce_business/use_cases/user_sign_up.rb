@@ -2,6 +2,8 @@
 
 require 'clean-architecture'
 
+require 'simple_ecommerce_business/entities/user'
+
 module SimpleEcommerceBusiness
   module UseCases
     class UserSignUp < CleanArchitecture::UseCases::AbstractUseCase # rubocop:disable Style/Documentation
@@ -12,7 +14,7 @@ module SimpleEcommerceBusiness
           required(:email).filled(:string)
           required(:password).filled(:string)
           required(:password_confirmation).filled(:string)
-          required(:role).filled(:string)
+          required(:role).filled(SimpleEcommerceBusiness::Entities::Role)
         end
 
         rule(:password) do

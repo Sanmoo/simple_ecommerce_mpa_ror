@@ -51,6 +51,14 @@ module SimpleEcommerceBusiness
         expect(result.value!).to be_a User
       end
 
+      context 'when role is invalid' do
+        before { @params[:role] = 'PROVIDER' }
+
+        it 'fails to sign a user up' do
+          expect(result).to be_a Dry::Monads::Failure
+        end
+      end
+
       context 'when email is empty' do
         before { @params[:email] = '' }
 
